@@ -17,6 +17,7 @@ die();
 
 @foreach ($gigs as $gig)
 
+    {{-- This code will bring the code from gig-card after passing $gig variable --}}
     <x-gig-card :gig="$gig" />
 
 @endforeach
