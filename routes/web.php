@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GigController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Gig;
@@ -15,21 +16,22 @@ use App\Models\Gig;
 |
 */
 
+// Common Resource Routes:
+// -----------------------
+// index => Show all Gigs
+// show => Show a single Gig
+// Create => Show form to create new Gig
+// Store => Store new Gig
+// Edit => Show form to edit a gig
+// Update => Update a gig
+// Destroy => Delete a gig
+
+
 // All Gigs
-Route::get('/', function () {
-    return view('gigs', [
-        'heading' => 'Latest Gigs',
-        'empty_message' => 'Oops, There is no Gigs yet',
-        'gigs' => Gig::all()
-    ]);
-});
+Route::get('/', [GigController::class, 'index']);
 
 // Fetching only one Gig
-Route::get('/gig/{gig}', function(Gig $gig) {
-    return view('gig', [
-        'gig' => $gig
-    ]);
-});
+Route::get('/gig/{gig}', [GigController::class, 'show']);
 
 
 
