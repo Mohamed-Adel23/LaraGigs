@@ -11,7 +11,7 @@ class GigController extends Controller
     public function index() {
         return view('gigs.index', [
             'empty_message' => 'Oops, There is no Gigs yet',
-            'gigs' => Gig::all()
+            'gigs' => Gig::latest()->filter(request(['tag', 'search']))->get()
         ]);
     }
 
@@ -20,5 +20,15 @@ class GigController extends Controller
         return view('gigs.show', [
             'gig' => $gig
         ]);
+    }
+
+    // Create New Gig
+    public function create() {
+        return view('gigs.create');
+    }
+
+    // Store The Data of The New Gig
+    public function store(Request $request) {
+        dd($request->all());
     }
 }

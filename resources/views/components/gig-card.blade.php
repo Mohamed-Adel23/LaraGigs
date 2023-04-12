@@ -10,7 +10,7 @@
         />
         <div>
             <h3 class="text-2xl">
-                <a href="gig/{{ $gig->id }}">{{ $gig->title }}</a>
+                <a href="gigs/{{ $gig->id }}">{{ $gig->title }}</a>
             </h3>
             <div class="text-xl font-bold mb-4">{{ $gig->company }}</div>
 

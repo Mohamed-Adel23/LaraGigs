@@ -30,8 +30,17 @@ use App\Models\Gig;
 // All Gigs
 Route::get('/', [GigController::class, 'index']);
 
+// Show Create a Gig
+Route::get('/gigs/create', [GigController::class, 'create']);
+
+// Store The Gig Data
+Route::post('/gigs', [GigController::class, 'store']);
+
 // Fetching only one Gig
-Route::get('/gig/{gig}', [GigController::class, 'show']);
+Route::get('/gigs/{gig}', [GigController::class, 'show']);
+
+
+
 
 
 
