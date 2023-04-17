@@ -12,7 +12,13 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
+
+    {{-- Alpinejs Script --}}
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    {{-- Tailwind Script --}}
     <script src="https://cdn.tailwindcss.com"></script>
+
     <script>
         tailwind.config = {
             theme: {
@@ -24,6 +30,7 @@
             },
         };
     </script>
+
     <title>LaraGigs | Find Laravel Jobs & Projects</title>
     <link
       rel="icon"
@@ -51,6 +58,9 @@
             </li>
         </ul>
     </nav>
+
+    {{-- Adding The Flash Message Component --}}
+    <x-flash-message />
 
     <main>
         {{ $slot }}

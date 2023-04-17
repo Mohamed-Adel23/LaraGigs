@@ -36,6 +36,15 @@ Route::get('/gigs/create', [GigController::class, 'create']);
 // Store The Gig Data
 Route::post('/gigs', [GigController::class, 'store']);
 
+// Show Edit a Gig
+Route::get('/gigs/{gig}/edit', [GigController::class, 'edit']);
+
+// Update The Gig
+Route::put('/gigs/{gig}', [GigController::class, 'update']);
+
+// Delete a Gig
+Route::delete('/gigs/{gig}', [GigController::class, 'destroy']);
+
 // Fetching only one Gig
 Route::get('/gigs/{gig}', [GigController::class, 'show']);
 
