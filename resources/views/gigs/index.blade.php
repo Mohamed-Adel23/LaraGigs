@@ -23,4 +23,8 @@ die();
         <h3>{{ $empty_message }}</h3>
         @endunless
     </div>
+
+    <div class="mt-6 p-4">
+        {{ $gigs->links() }}
+    </div>
 </x-layout>
