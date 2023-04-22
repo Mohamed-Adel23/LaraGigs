@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Gig extends Model
 {
     use HasFactory;
 
     // Fillable Property To Allow Mass Assignment
-    // protected $fillable = ['title', 'company', 'tags', 'description', 'website', 'email', 'location'];
+    // protected $fillable = ['user_id', 'title', 'company', 'tags', 'description', 'website', 'email', 'location'];
 
     // Filter All Gigs
     public function scopeFilter($query, array $filters) {
@@ -23,5 +24,10 @@ class Gig extends Model
             ->orWhere('title', 'LIKE', '%' . $filters['search'] . '%')
             ->orWhere('description', 'LIKE', '%' . $filters['search'] . '%');
         }
+    }
+
+    // Relationship to user
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

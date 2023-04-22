@@ -18,7 +18,7 @@ class GigFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'logo' => 'images/no-image.png',
+            'logo' => '',
             'tags' => 'laravel, api, backend',
             'company' => $this->faker->company(),
             'email' => $this->faker->companyEmail(),

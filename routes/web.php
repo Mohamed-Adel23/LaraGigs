@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\GigController;
+use App\Models\Gig;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Gig;
+use App\Http\Controllers\GigController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,25 +32,40 @@ use App\Models\Gig;
 Route::get('/', [GigController::class, 'index']);
 
 // Show Create a Gig
-Route::get('/gigs/create', [GigController::class, 'create']);
+Route::get('/gigs/create', [GigController::class, 'create'])->middleware('auth');
 
-// Store The Gig Data
+// Store The Gig Data (C)
 Route::post('/gigs', [GigController::class, 'store']);
 
-// Show Edit a Gig
-Route::get('/gigs/{gig}/edit', [GigController::class, 'edit']);
+// Manage a Gig (R)
+Route::get('/gigs/manage', [GigController::class, 'manage'])->middleware('auth');
 
-// Update The Gig
+// Show Edit a Gig
+Route::get('/gigs/{gig}/edit', [GigController::class, 'edit'])->middleware('auth');
+
+// Update The Gig (U)
 Route::put('/gigs/{gig}', [GigController::class, 'update']);
 
-// Delete a Gig
+// Delete a Gig (D)
 Route::delete('/gigs/{gig}', [GigController::class, 'destroy']);
 
 // Fetching only one Gig
 Route::get('/gigs/{gig}', [GigController::class, 'show']);
 
+// Show Register/Create Form
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 
+// Create New User
+Route::post('/users', [UserController::class, 'store']);
 
+// Log User Out
+Route::post('/logout', [UserController::class, 'logout']);
+
+// Log User In
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
+// Auth User
+Route::post('/user', [UserController::class, 'authenticate']);
 
 
 
