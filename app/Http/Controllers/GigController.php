@@ -45,6 +45,9 @@ class GigController extends Controller
         if($request->hasFile('logo')) {
             $fieldsValidate['logo'] = $request->file('logo')->store('logos', 'public');
         }
+        // Adding the owner of the Gig
+        $fieldsValidate['user_id'] = auth()->user()->id;
+
         // Push Data To Database with the variable we validate the data on it
         Gig::create($fieldsValidate);
 
@@ -54,6 +57,10 @@ class GigController extends Controller
     // Show Edit a Gig
     // Id Should Match The Parameter $gig
     public function edit(Gig $gig) {
+        // Make Sure That The User Is The Owner
+        if($gig->user_id != auth()->id()) {
+            abort('403', 'Unauthorized Action!!');
+        }
         // dd($gig->id);
         return view('gigs.edit', [
             'gig' => $gig
@@ -62,6 +69,11 @@ class GigController extends Controller
 
     // Update The Gig Data
     public function update(Request $request, Gig $gig) {
+        // Make Sure That The User Is The Owner
+        if($gig->user_id != auth()->id()) {
+            abort('401', 'Unauthorized Action!!');
+        }
+
         $fieldsValidate = $request->validate([
             'company' => 'required',
             'email' => ['required', 'email'],
@@ -82,7 +94,19 @@ class GigController extends Controller
 
     // Delete a Gig
     public function destroy(Gig $gig) {
+        // Make Sure That The User Is The Owner
+        if($gig->user_id != auth()->id()) {
+            abort('401', 'Unauthorized Action!!');
+        }
+
         $gig->delete();
         return redirect('/')->with('message', 'Gig Deleted Successfully!!');
+    }
+
+    // Manage Gigs
+    public function manage() {
+        return view('gigs.manage', [
+            'gigs' => auth()->user()->gigs()->get()
+        ]);
     }
 }
